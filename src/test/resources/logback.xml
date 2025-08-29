@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration  -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user             -->
+<!--                                                                -->
+<!-- For professional support please see                            -->
+<!--    http://www.qos.ch/shop/products/professionalSupport         -->
+<!--                                                                -->
+<configuration>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <pattern>[Tanggula] %d %p [%t] %class.%M\(%L\) | %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
+        <File>Tanggula.log</File>
+        <encoder>
+            <pattern>[Tanggula]%d{ISO8601} %p [%t] %class.%M\(%L\) | %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>10</maxIndex>
+            <FileNamePattern>Tanggula.log.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>100MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+    <logger name="com.ozstrategy.strategy.job.batch" level="INFO"/>
+    <logger name="org.mvel2.optimizers.impl.refl" level="ERROR"/>
+    <logger name="com.ozstrategy" level="DEBUG"/>
+    <logger name="com.ozstrategy.strategy" level="INFO"/>
+    <logger name="com.ozstrategy.strategy.jdbc" level="ERROR"/>
+    <logger name="com.ozstrategy.strategy.jdbc.template.sql" level="ERROR"/>
+    <logger name="com.ozstrategy.strategy.el" level="DEBUG"/>
+    <logger name="com.ozstrategy.strategy.util" level="INFO"/>
+    <logger name="com.ozstrategy.strategy.pojo" level="ERROR"/>
+    <logger name="org.springframework.cache" level="ERROR"/>
+    <logger name="net.sf.ehcache" level="ERROR"/>
+    <logger name="org.springframework" level="ERROR"/>
+    <logger name="com.ozstrategy.batch" level="INFO"/>
+    <logger name="org.drools" level="ERROR"/>
+    <root level="ERROR">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="logfile"/>
+    </root>
+</configuration>
